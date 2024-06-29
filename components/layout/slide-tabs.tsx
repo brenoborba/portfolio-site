@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { ReactNode, useRef, useState } from 'react'
+import { usePathname } from 'next/navigation'
+import { ReactNode, useEffect, useRef, useState } from 'react'
 
 type NavLink = {
   title: string
@@ -21,16 +22,37 @@ type Position = {
 }
 
 export const SlideTabs = () => {
+  const pathname = usePathname()
+  const homeRef = useRef<HTMLLIElement>(null)
   const [position, setPosition] = useState<Position>({
-    left: 4,
-    width: 88.53125,
+    left: 0,
+    width: 0,
     opacity: 1,
   })
+
+  useEffect(() => {
+    let activeLink = document.querySelector('.active-tab')
+    if (pathname === '/' && homeRef.current) {
+      activeLink = homeRef.current
+    }
+
+    if (activeLink) {
+      const { offsetLeft, offsetWidth } = activeLink as HTMLElement
+      setPosition({
+        left: offsetLeft,
+        width: offsetWidth,
+        opacity: 1,
+      })
+    }
+  }, [pathname])
+
   return (
     <ul className='relative mx-auto flex w-fit rounded-full border-2 bg-neutral-50 p-1 shadow-lg'>
       {navLinks.map((navLink) => {
+        const isActive = pathname === navLink.href
         return (
           <Tab
+            isActive={isActive}
             setPosition={setPosition}
             key={navLink.title}
             navLink={navLink}
@@ -44,7 +66,17 @@ export const SlideTabs = () => {
   )
 }
 
-const Tab = ({ children, navLink, setPosition }: { children: ReactNode; navLink: NavLink; setPosition: any }) => {
+const Tab = ({
+  children,
+  navLink,
+  setPosition,
+  isActive,
+}: {
+  children: ReactNode
+  navLink: NavLink
+  setPosition: any
+  isActive: boolean
+}) => {
   const ref = useRef<HTMLLIElement>(null)
   return (
     <li
@@ -52,14 +84,15 @@ const Tab = ({ children, navLink, setPosition }: { children: ReactNode; navLink:
       onClick={() => {
         if (!ref.current) return
         const { width } = ref.current.getBoundingClientRect()
-        console.log(ref.current.offsetLeft, width)
         setPosition({
           left: ref.current.offsetLeft,
           width,
           opacity: 1,
         })
       }}
-      className='relative z-10 block cursor-pointer px-3 py-1.5 text-xs uppercase text-white mix-blend-difference md:px-5 md:py-3 md:text-base antialiased font-semibold'
+      className={`relative z-10 block cursor-pointer px-3 py-1.5 text-xs uppercase text-white mix-blend-difference md:px-5 md:py-3 md:text-base antialiased font-semibold ${
+        isActive ? 'active-tab' : ''
+      }`}
     >
       <Link href={navLink.href}>{children}</Link>
     </li>

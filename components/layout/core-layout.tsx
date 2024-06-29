@@ -10,10 +10,10 @@ type Props = {
 const CoreLayout = (props: Props) => {
   return (
     <div className='flex flex-col h-screen xl:px-[15%] px-[10%]'>
-      <header className='min-h-auto'>
+      <header className='min-h-auto py-4'>
         <SlideTabs />
       </header>
-      <main className='flex-1 min-h-full'>{props.children}</main>
+      <main className='flex-1 min-h-full border border-neutral-100'>{props.children}</main>
     </div>
   )
 }
