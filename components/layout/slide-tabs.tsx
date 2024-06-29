@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -47,7 +48,7 @@ export const SlideTabs = () => {
   }, [pathname])
 
   return (
-    <ul className='relative flex w-fit rounded-full bg-neutral-950 p-1 shadow-lg'>
+    <ul className='relative flex w-fit rounded-full bg-neutral-900 p-1 shadow-lg dark:bg-neutral-100'>
       {navLinks.map((navLink) => {
         const isActive = pathname === navLink.href
         return (
@@ -90,9 +91,12 @@ const Tab = ({
           opacity: 1,
         })
       }}
-      className={`relative z-10 block cursor-pointer px-3 py-1 text-xs font-semibold uppercase text-white antialiased mix-blend-difference md:px-5 md:py-3 md:text-base ${
-        isActive ? 'active-tab' : ''
-      }`}
+      className={cn(
+        'relative z-10 block cursor-pointer px-3 py-1 text-xs font-semibold uppercase text-neutral-100 antialiased mix-blend-difference md:px-5 md:py-3 md:text-base',
+        {
+          'active-tab': isActive,
+        }
+      )}
     >
       <Link href={navLink.href}>{children}</Link>
     </li>
@@ -103,7 +107,7 @@ const Cursor = ({ position }: { position: Position }) => {
   return (
     <motion.li
       animate={position}
-      className='absolute z-0 h-7 rounded-full bg-neutral-50 md:h-12'
+      className='absolute z-0 h-7 rounded-full bg-neutral-100 md:h-12 dark:bg-neutral-900'
     ></motion.li>
   )
 }

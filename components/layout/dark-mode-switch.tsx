@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { motion } from 'framer-motion'
+import React, { useEffect, useState } from 'react'
+import { motion, useAnimation, useMotionValueEvent } from 'framer-motion'
 import { cn } from '@/lib/utils'
 
 const spring = {
@@ -18,13 +18,13 @@ const DarkModeSwitch = () => {
   console.log(dark)
   return (
     <div
-      className={cn('flex h-8 w-14 cursor-pointer items-center rounded-full bg-neutral-900 p-1.5', {
+      className={cn('flex h-8 w-14 cursor-pointer items-center rounded-full bg-neutral-900 p-1.5 dark:bg-neutral-100', {
         'justify-end': dark,
       })}
       onClick={toggleDarkMode}
     >
       <motion.div
-        className='h-6 w-6 rounded-full bg-neutral-50 shadow-md'
+        className='h-6 w-6 rounded-full bg-neutral-100 shadow-md dark:bg-neutral-900'
         layout
         transition={spring}
       />
