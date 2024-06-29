@@ -47,7 +47,7 @@ export const SlideTabs = () => {
   }, [pathname])
 
   return (
-    <ul className='relative mx-auto flex w-fit rounded-full border-2 bg-neutral-50 p-1 shadow-lg'>
+    <ul className='relative flex w-fit rounded-full bg-neutral-950 p-1 shadow-lg'>
       {navLinks.map((navLink) => {
         const isActive = pathname === navLink.href
         return (
@@ -90,7 +90,7 @@ const Tab = ({
           opacity: 1,
         })
       }}
-      className={`relative z-10 block cursor-pointer px-3 py-1.5 text-xs uppercase text-white mix-blend-difference md:px-5 md:py-3 md:text-base antialiased font-semibold ${
+      className={`relative z-10 block cursor-pointer px-3 py-1 text-xs font-semibold uppercase text-white antialiased mix-blend-difference md:px-5 md:py-3 md:text-base ${
         isActive ? 'active-tab' : ''
       }`}
     >
@@ -103,7 +103,7 @@ const Cursor = ({ position }: { position: Position }) => {
   return (
     <motion.li
       animate={position}
-      className='absolute z-0 h-7 rounded-full bg-black md:h-12'
+      className='absolute z-0 h-7 rounded-full bg-neutral-50 md:h-12'
     ></motion.li>
   )
 }

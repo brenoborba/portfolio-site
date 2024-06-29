@@ -24,6 +24,7 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.4",
     "postcss": "^8",
+    "prettier-plugin-tailwindcss": "^0.6.5",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   },
@@ -35,6 +36,9 @@
     "tabWidth": 2,
     "jsxSingleQuote": true,
     "bracketSameLine": false,
-    "singleAttributePerLine": true
+    "singleAttributePerLine": true,
+    "plugins": [
+      "prettier-plugin-tailwindcss"
+    ]
   }
 }
